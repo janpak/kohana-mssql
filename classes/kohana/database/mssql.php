@@ -6,7 +6,7 @@
 */
 class Kohana_Database_MsSQL extends Database_PDO {
 	
-	public function query($type, $sql, $as_object)
+	public function query($type, $sql, $as_object= False,array $params = NULL)
 	{
 		// Make sure the database is connected
 		$this->_connection or $this->connect();
@@ -64,6 +64,8 @@ class Kohana_Database_MsSQL extends Database_PDO {
 
 		try
 		{
+			$sql=str_replace('erp.','',$sql);
+			FB::log($sql);	
 			$result = $this->_connection->query($sql);
 		}
 		catch (Exception $e)
@@ -105,7 +107,8 @@ class Kohana_Database_MsSQL extends Database_PDO {
 			$result = $result->fetchAll();
 
 			// Return an iterator of results
-			return new Database_Result_Cached($result, $sql, $as_object);
+			FB::log($result);
+			return new JP_Database_MsSQL_Result($result, $sql, $as_object);
 		}
 		elseif ($type === Database::INSERT)
 		{
@@ -170,7 +173,7 @@ class Kohana_Database_MsSQL extends Database_PDO {
 		return $tables;
 	}
 	
-	public function list_columns($table, $like = NULL)
+	public function list_columns($table, $like = NULL, $add_prefix = TRUE)
 	{
 		if (is_string($like))
 		{

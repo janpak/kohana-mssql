@@ -65,7 +65,7 @@ class Kohana_Database_MsSQL extends Database_PDO {
 		try
 		{
 			$sql=str_replace('erp.','',$sql);
-			FB::log($sql);	
+			FB::log($sql, 'mssql query ');	
 			$result = $this->_connection->query($sql);
 		}
 		catch (Exception $e)
@@ -107,7 +107,7 @@ class Kohana_Database_MsSQL extends Database_PDO {
 			$result = $result->fetchAll();
 
 			// Return an iterator of results
-			FB::log($result);
+			//FB::log($result);
 			return new JP_Database_MsSQL_Result($result, $sql, $as_object);
 		}
 		elseif ($type === Database::INSERT)

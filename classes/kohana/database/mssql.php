@@ -65,8 +65,8 @@ class Kohana_Database_MsSQL extends Database_PDO {
 		try
 		{
 			$sql=str_replace('erp.','',$sql);
-
 			$sql=str_replace('erpms.','',$sql);
+			$sql=str_replace('sql02p.','',$sql);
 		//	$sql=str_replace('.','',$sql);
 			FB::log($sql);	
 
